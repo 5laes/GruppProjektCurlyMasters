@@ -13,5 +13,18 @@ namespace GruppProjektCurlyMasters.Controllers
         {
             repository = appRepository;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllEmployees()
+        {
+            try
+            {
+                return Ok(await repository.GetAll());
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR: Failed to retrieve data from database!");
+            }
+        }
     }
 }

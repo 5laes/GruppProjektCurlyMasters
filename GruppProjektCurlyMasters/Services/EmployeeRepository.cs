@@ -1,5 +1,6 @@
 ﻿using DbLibrary;
 using GruppProjektCurlyMasters.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GruppProjektCurlyMasters.Services
 {
@@ -20,9 +21,9 @@ namespace GruppProjektCurlyMasters.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Employee>> GetAll()
+        public async Task<IEnumerable<Employee>> GetAll()
         {
-            throw new NotImplementedException();
+            return await context.Employees.ToListAsync();
         }
 
         public Task<Employee> GetSingle(int id)
