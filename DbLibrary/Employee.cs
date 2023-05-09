@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DbLibrary
 {
@@ -9,7 +10,9 @@ namespace DbLibrary
         public string Name { get; set; }
         public int Age { get; set; }
         public int ProjectId { get; set; }
-        public Project Project { get; set; }
-        public ICollection<TimeReport> TimeReports { get; set; }
+        [JsonIgnore]
+        public Project? Project { get; set; }
+        [JsonIgnore]
+        public ICollection<TimeReport>? TimeReports { get; set; }
     }
 }

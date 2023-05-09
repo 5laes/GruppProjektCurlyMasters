@@ -11,14 +11,23 @@ namespace GruppProjektCurlyMasters.Services
         {
             context = Dbcontext;
         }
-        public Task<Employee> Add(Employee newEntity)
+        public async Task<Employee> Add(Employee newEntity)
         {
-            throw new NotImplementedException();
+            var result = await context.Employees.AddAsync(newEntity);
+            await context.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<Employee> Delete(int id)
+        public async Task<Employee> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await context.Employees.FirstOrDefaultAsync(x => x.Id == id);
+            if (result != null)
+            {
+                context.Employees.Remove(result);
+                await context.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Employee>> GetAll()
@@ -26,14 +35,34 @@ namespace GruppProjektCurlyMasters.Services
             return await context.Employees.ToListAsync();
         }
 
-        public Task<Employee> GetSingle(int id)
+        public async Task<IEnumerable<Employee>> GetAllFromSingle(int id)
+        {
+            return await context.Employees.Where(e => e.ProjectId == id).ToListAsync();
+        }
+
+        public Task<int> GetHoursWorkFromWeek(DateTime start, DateTime end, int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Employee> Update(Employee newEntity)
+        public async Task<Employee> GetSingle(int id)
         {
-            throw new NotImplementedException();
+            return await context.Employees.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Employee> Update(Employee newEntity)
+        {
+            var result = await context.Employees.FirstOrDefaultAsync(x => x.Id == newEntity.Id);
+            if (result != null)
+            {
+                result.Name = newEntity.Name;
+                result.Age = newEntity.Age;
+                result.ProjectId = newEntity.ProjectId;
+
+                await context.SaveChangesAsync();
+                return result;
+            }
+            return null;
         }
     }
 }
