@@ -14,7 +14,7 @@ namespace GruppProjektCurlyMasters.Controllers
             repository = appRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllEmployees")]
         public async Task<IActionResult> GetAllEmployees()
         {
             try
@@ -27,21 +27,21 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetAllFromProject(int id)
-        //{
-        //    try
-        //    {
-        //        return Ok(await repository.GetAllFromSingle(id));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "ERROR: Failed to retrieve data from database!");
-        //    }
-        //}
+        [HttpGet("GetAllFromProjectID")]
+        public async Task<IActionResult> GetAllFromProject(int id)
+        {
+            try
+            {
+                return Ok(await repository.GetAllFromSingle(id));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR: Failed to retrieve data from database!");
+            }
+        }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Employee>> GetSingleProject(int id)
+        [HttpGet("GetSingleEmployee")]
+        public async Task<ActionResult<Employee>> GetSingleEmployee(int id)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Employee>> AddProject(Employee employee)
+        [HttpPost("AddEmployee")]
+        public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace GruppProjektCurlyMasters.Controllers
                     return BadRequest();
                 }
                 var CreateEmployee = await repository.Add(employee);
-                return CreatedAtAction(nameof(GetSingleProject), new { id = CreateEmployee.Id }, CreateEmployee);
+                return CreatedAtAction(nameof(GetSingleEmployee), new { id = CreateEmployee.Id }, CreateEmployee);
             }
             catch (Exception)
             {
@@ -76,8 +76,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Employee>> DeleteProject(int id)
+        [HttpDelete("DeleteEmployee")]
+        public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
             try
             {
@@ -94,8 +94,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Employee>> UpdateProject(int id, Employee employee)
+        [HttpPut("UpdateEmployee")]
+        public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee employee)
         {
             try
             {

@@ -14,7 +14,7 @@ namespace GruppProjektCurlyMasters.Controllers
             repository = appRepository;
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("GetSingleProject")]
         public async Task<ActionResult<Project>> GetSingleProject(int id)
         {
             try
@@ -32,7 +32,7 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("AddProject")]
         public async Task<ActionResult<Project>> AddProject(Project project)
         {
             try
@@ -50,7 +50,7 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProject")]
         public async Task<ActionResult<Project>> DeleteProject(int id)
         {
             try
@@ -68,7 +68,7 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateProject")]
         public async Task<ActionResult<Project>> UpdateProject(int id, Project project)
         {
             try

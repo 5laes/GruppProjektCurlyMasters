@@ -14,22 +14,22 @@ namespace GruppProjektCurlyMasters.Controllers
             repository = appRepository;
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetTimeReportFromEmployee(int id)
-        //{
-        //    try
-        //    {
-        //        return Ok(await repository.GetAllFromSingle(id));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "ERROR: Failed to retrieve data from database!");
-        //    }
-        //}
+        [HttpGet("GetTimeReportFromEmployee")]
+        public async Task<IActionResult> GetTimeReportFromEmployee(int id)
+        {
+            try
+            {
+                return Ok(await repository.GetAllFromSingle(id));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "ERROR: Failed to retrieve data from database!");
+            }
+        }
 
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<TimeReport>> GetSingleProject(int id)
+        [HttpGet("GetSingleTimeReport")]
+        public async Task<ActionResult<TimeReport>> GetSingleTimeReport(int id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetHoursWorkedFromWeek")]
         public async Task<ActionResult<TimeReport>> GetHoursWorkedFromWeek(DateTime start, DateTime end, int id)
         {
             try
@@ -59,8 +59,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<TimeReport>> AddProject(TimeReport timeReport)
+        [HttpPost("AddTimeReport")]
+        public async Task<ActionResult<TimeReport>> AddTimeReport(TimeReport timeReport)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace GruppProjektCurlyMasters.Controllers
                     return BadRequest();
                 }
                 var CreateEmployee = await repository.Add(timeReport);
-                return CreatedAtAction(nameof(GetSingleProject), new { id = CreateEmployee.Id }, CreateEmployee);
+                return CreatedAtAction(nameof(GetSingleTimeReport), new { id = CreateEmployee.Id }, CreateEmployee);
             }
             catch (Exception)
             {
@@ -77,8 +77,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TimeReport>> DeleteProject(int id)
+        [HttpDelete("DeleteTimeReport")]
+        public async Task<ActionResult<TimeReport>> DeleteTimeReport(int id)
         {
             try
             {
@@ -95,8 +95,8 @@ namespace GruppProjektCurlyMasters.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<TimeReport>> UpdateProject(int id, TimeReport timeReport)
+        [HttpPut("UpdateTimeReport")]
+        public async Task<ActionResult<TimeReport>> UpdateTimeReport(int id, TimeReport timeReport)
         {
             try
             {
